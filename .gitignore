@@ -1,0 +1,10 @@
+# VS Code and VS IDE user settings
+.vscode/
+*.sln
+
+# .NET Core build output
+bin/
+obj/
+
+# Development settings
+*.Development.json
