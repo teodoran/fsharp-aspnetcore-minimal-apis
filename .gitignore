@@ -8,3 +8,6 @@ obj/
 
 # Development settings
 *.Development.json
+
+# Ionide symbol cache
+.ionide/
