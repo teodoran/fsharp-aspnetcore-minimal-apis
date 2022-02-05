@@ -25,7 +25,7 @@ let summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Bal
 type WeatherForecast(date: DateTime, temperatureC: int, summary: string) =
   member _.Date = date
   member _.TemperatureC = temperatureC
-  member _.Summary = temperatureC
+  member _.Summary = summary
   member _.TemperatureF = 32 + (int)((float)temperatureC / 0.5556)
 
 type ToAction<'a> = delegate of unit -> 'a
