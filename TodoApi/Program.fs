@@ -2,43 +2,35 @@ open System
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
+open Okapi
 
-let args = Environment.GetCommandLineArgs().[1..]
-let builder = WebApplication.CreateBuilder(args)
+type WeatherForecast =
+    { Date: DateTime
+      TemperatureC: int
+      TemperatureF: int
+      Summary: string }
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer() |> ignore
-builder.Services.AddSwaggerGen() |> ignore
+module RandomWeatherForecast =
+    let private summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
 
-let app = builder.Build()
+    let ocurringAfter (noOfDays: int) =
+        let temperatureC = Random.Shared.Next(-20, 55)
+        { Date = DateTime.Now.AddDays(noOfDays)
+          TemperatureC = temperatureC
+          TemperatureF = 32 + (int)((float)temperatureC / 0.5556)
+          Summary = summaries[Random.Shared.Next(summaries.Length)] }
 
-// Configure the HTTP request pipeline.
-if app.Environment.IsDevelopment() then
-    app.UseSwagger() |> ignore
-    app.UseSwaggerUI() |> ignore
+let fiveRandomForecasts () = seq { for noOfDays in 1 .. 5 do RandomWeatherForecast.ocurringAfter noOfDays }
 
-app.UseHttpsRedirection() |> ignore
-
-let summaries = [| "Freezing"; "Bracing"; "Chilly"; "Cool"; "Mild"; "Warm"; "Balmy"; "Hot"; "Sweltering"; "Scorching" |]
-
-type WeatherForecast(date: DateTime, temperatureC: int, summary: string) =
-  member _.Date = date
-  member _.TemperatureC = temperatureC
-  member _.Summary = summary
-  member _.TemperatureF = 32 + (int)((float)temperatureC / 0.5556)
-
-type ToAction<'a> = delegate of unit -> 'a
-app.MapGet("/weatherforecast", ToAction((fun () ->
-    let forecast =
-        seq { 1 .. 5 }
-        |> Seq.map (fun index ->
-            WeatherForecast(
-                DateTime.Now.AddDays(index),
-                Random.Shared.Next(-20, 55),
-                summaries[Random.Shared.Next(summaries.Length)]))
-        |> Seq.toArray
-    forecast)))
-    .WithName("GetWeatherForecast") |> ignore
-
-app.Run()
+Builder.create ()
+|> Builder.addServices (fun services ->
+    services
+        .AddEndpointsApiExplorer()
+        .AddSwaggerGen())
+|> Builder.build
+|> Application.configure (fun app ->
+    if app.Environment.IsDevelopment() then
+        app.UseSwagger().UseSwaggerUI() |> ignore
+    app.UseHttpsRedirection())
+|> Application.mapGet "/weatherforecast" "GetWeatherForecast" (fiveRandomForecasts>>Seq.toArray)
+|> Application.run

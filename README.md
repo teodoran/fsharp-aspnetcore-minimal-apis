@@ -9,3 +9,4 @@ Some links:
 - [Minimal APIs introduction issue](https://github.com/dotnet/aspnetcore/issues/30354)
 - [arg in F#?](https://github.com/fsharp/fslang-suggestions/issues/1022)
 - [Tweeting about Minimal APIs and F#](https://twitter.com/_teodoran/status/1389522924298723329?s=20&t=bfumo11ScSqn3xksesaZow)
+- [Implementation thread](https://twitter.com/_teodoran/status/1490052231252660228?s=20&t=09UxN-2qDyKh98IjA_VWXQ)
