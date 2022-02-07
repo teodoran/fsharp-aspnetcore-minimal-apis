@@ -28,8 +28,7 @@ type WeatherForecast(date: DateTime, temperatureC: int, summary: string) =
   member _.Summary = temperatureC
   member _.TemperatureF = 32 + (int)((float)temperatureC / 0.5556)
 
-type ToAction<'a> = delegate of unit -> 'a
-app.MapGet("/weatherforecast", ToAction((fun () ->
+app.MapGet("/weatherforecast", Func<_>((fun () ->
     let forecast =
         seq { 1 .. 5 }
         |> Seq.map (fun index ->
