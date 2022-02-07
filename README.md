@@ -4,7 +4,7 @@ _Exploration of Minimal APIs in ASP.NET Core using F#. Follow the story in [this
 
 Some links:
 - [Minimal APIs overview](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0)
-- [Create web APIs with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-6.0)
+- [Tutorial: Create a minimal web API with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-6.0&tabs=visual-studio-code)
 - [What's new in ASP.NET Core 6.0](https://docs.microsoft.com/en-us/aspnet/core/release-notes/aspnetcore-6.0?view=aspnetcore-6.0)
 - [Minimal APIs introduction issue](https://github.com/dotnet/aspnetcore/issues/30354)
 - [arg in F#?](https://github.com/fsharp/fslang-suggestions/issues/1022)

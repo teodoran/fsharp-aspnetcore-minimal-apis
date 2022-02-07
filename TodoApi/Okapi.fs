@@ -20,9 +20,8 @@ module Application =
         fn app |> ignore
         app
 
-    type ToAction<'a> = delegate of unit -> 'a
     let mapGet pattern name fn (app: WebApplication) =
-        app.MapGet(pattern, ToAction(fn)).WithName(name) |> ignore
+        app.MapGet(pattern, Func<_>(fn)).WithName(name) |> ignore
         app
 
     let run (application: WebApplication) = application.Run()
